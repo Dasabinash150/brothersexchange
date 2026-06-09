@@ -128,19 +128,86 @@ var first_swiper = new Swiper(".FirstMySwiper ", {
   })
 
 
+
+// let valueDisplays = document.querySelectorAll(".c-number");
+// let interval = 4000;
+
+// valueDisplays.forEach((valueDisplay) => { // Corrected variable name
+//     let startValue = 0;
+//     let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+//     let displayType = valueDisplay.getAttribute("data-type");
+//     let duration = Math.floor(interval / endValue);
+    
+//     let counter = setInterval(function () {
+//         startValue += 1;
+        
+//         // Different display formats based on the type
+//         if (displayType === "K+" && startValue >= 10) {
+//             valueDisplay.textContent = (startValue / 10).toFixed(0) + "K+";
+//         } else if (displayType === "+") {
+//             valueDisplay.textContent = startValue + "+";
+//         } else if (displayType === "hr") {
+//             valueDisplay.textContent = startValue + "hr";
+//         } else {
+//             valueDisplay.textContent = startValue; // Default case
+//         }
+
+//         // Stop the counter when the target value is reached
+//         if (startValue == endValue) {
+//             clearInterval(counter);
+//         }
+    
+//     }, duration);
+
+// });
+
 let valueDisplays = document.querySelectorAll(".c-number");
-let interval = 4000;
+let interval = 1000;
+let hasStarted = false;  // Flag to ensure counting starts only once
 
-valueDisplays.forEach((valueDisplays) => {
-    let startValue = 0;
-    let endValue = parseInt(valueDisplays.getAttribute("data-val"));
-    let duration = Math.floor(interval / endValue);
-    let counter = setInterval(function () {
-        startValue += 1;
-        valueDisplays.textContent = startValue;
-        if (startValue == endValue){
-            clearInterval(counter);
-        }
-    }, duration);
+// Function to start counting when the section comes into view
+function startCounting() {
+    let section = document.querySelector('.counters'); // Section to watch
 
-})
+    // Get the position of the section relative to the viewport
+    let sectionPosition = section.getBoundingClientRect().top;
+    let screenPosition = window.innerHeight / 1.2; // Trigger when section is 80% in view
+
+    // Check if the section is in view and if the counter hasn't started
+    if (sectionPosition < screenPosition && !hasStarted) {
+        hasStarted = true;  // Set the flag to prevent multiple triggers
+        valueDisplays.forEach((valueDisplay) => {
+            let startValue = 0;
+            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+            let displayType = valueDisplay.getAttribute("data-type");
+
+            // Apply a scaling factor for large values to speed up counting
+            let duration = endValue >= 1000 ? Math.floor(interval / (endValue / 1000)) : Math.floor(interval / endValue);
+
+            let counter = setInterval(function () {
+                startValue += 1;
+
+                // Different display formats based on the type
+                if (displayType === "K+" && startValue >= 10) {
+                    valueDisplay.textContent = (startValue / 10).toFixed(0) + "K+";
+                } else if (displayType === "+") {
+                    valueDisplay.textContent = startValue + "+";
+                } else if (displayType === "hr") {
+                    valueDisplay.textContent = startValue + "hr";
+                } else {
+                    valueDisplay.textContent = startValue;  // Default case for regular numbers
+                }
+
+                // Stop the counter when the target value is reached
+                if (startValue >= endValue) {
+                    clearInterval(counter);
+                }
+
+            }, duration);
+        });
+    }
+}
+
+// Listen for scroll events and trigger the counter when the section is visible
+window.addEventListener('scroll', startCounting);
+

@@ -8,9 +8,7 @@
     font-family: "Nunito Sans", "Poppins", sans-serif;
 }
 
-body {
-    background-color: #050e2d;
-}
+
 
 :root {
     /* Color variables */
@@ -21,6 +19,7 @@ body {
     --accent-color: #00fe83;
     --highlight-color: #07fafe;
     --heading-color: #4ab985;
+    --card-bg: rgba(250, 175, 0, 0.629);
 
     /* Font variables */
     --main-font: "Poppins", sans-serif;
@@ -38,6 +37,11 @@ body {
     --hover-effect: 0 0 10px var(--primary-color);
 }
 
+
+body {
+    background-color: var(--background-color);
+}
+
 li {
     list-style: none;
 }
@@ -45,40 +49,59 @@ li {
 a {
     text-decoration: none;
     color: white;
+    
 }
 
 p {
-    font-size: 20px;
-    color: #dbd9d9;
+    font-size: 1.25rem;
+    color: var(--text-color);
+}
+
+.btn-card, .header ul li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: var(--transition-speed);
 }
 
 .sec-heading {
-    background: linear-gradient(90deg, #ff9500, #00fe83);
-    /* background: linear-gradient(90deg,#00dbde,#fc00ff); */
-    /* font-family: 'Courier New', Courier, monospace; */
+    /* background: linear-gradient(90deg, #ff9500, #00fe83);
     font-size: 3em;
-    /* font-weight: 800; */
     letter-spacing: 1px;
     color: rgb(239, 195, 19);
     text-align: center;
     padding: 20px 20px;
-    /* text-transform: uppercase; */
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: "Monoton", serif;
     font-weight: 400;
-    font-style: normal;
+    font-style: normal; */
+    background: linear-gradient(90deg, var(--secondary-color), var(--highlight-color));
+    font-family: var(--heading-font);
+    font-size: 3em;
+    text-align: center;
+    letter-spacing: 1px;
+    color: var(--heading-color);
+    padding: 20px;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .sec-sub-heading {
-    background: linear-gradient(90deg, #07fafe, #e915fc);
+    /* background: linear-gradient(90deg, #07fafe, #e915fc);
     font-size: 2em;
     font-weight: 300;
     letter-spacing: 1px;
     color: rgb(0, 251, 234);
     font-family: "Shrikhand", serif;
     font-style: normal;
-
+    background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    background: linear-gradient(90deg, var(--highlight-color), var(--secondary-color));
+    font-family: var(--sub-heading-font);
+    font-size: 2em;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: rgb(0, 251, 234);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -95,20 +118,24 @@ p {
 }
 
 header.sticky {
-    background: #1b2141;
+    background: #0825c9;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     padding: 0px 5px;
 }
 
 .navbar-brand-logo {
-    position: relative;
+    /* position: relative;
     color: #fff;
     text-decoration: none;
     font-size: 2em;
-    /* font-weight: 700; */
     font-family: "Permanent Marker", serif;
     font-weight: 400;
     font-style: normal;
+    letter-spacing: 1px; */
+
+    color: #fff;
+    font-family: var(--logo-font);
+    font-size: 2em;
     letter-spacing: 1px;
 }
 
@@ -170,21 +197,21 @@ header.sticky {
 }
 
 .container {
-    width: 80%;
+    width: var(--container-width);
+    /* padding: var(--section-padding); */
 }
 
 /* Home banner */
 
 .banner {
-    position: relative;
     width: 100%;
     height: 100vh;
     background: linear-gradient(120deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));
-    /* background: linear-gradient(120deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/images/bg1.jpg') center center/cover no-repeat;  */
+    position: relative;
     overflow: hidden;
-    /* display: flex;
+    display: flex;
     justify-content: center;
-    align-items: center; */
+    align-items: center;
     /* animation: slider 30s ease-in-out infinite; */
 }
 
@@ -244,23 +271,6 @@ header.sticky {
 
 }
 
-/* .payment::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/images/background-with-lights-circular-order.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    opacity: 0.8;
-    z-index: -1;
-
-} */
-
 .banner .bg {
     position: relative;
     width: 100%;
@@ -273,26 +283,24 @@ header.sticky {
 .banner .bg .content {
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
 }
 
 .banner .bg .content h2 {
-    font-size: 4em;
+    font-size: 3.5em;
     font-weight: 800;
     color: #fff;
     letter-spacing: 1px;
     line-height: 4rem;
 
-    background: linear-gradient(90deg, #07fafe, #4ab985);
-    letter-spacing: 1px;
-    color: rgb(0, 251, 234);
+    background: linear-gradient(90deg, var(--highlight-color), var(--primary-color));
+    /* color: rgb(0, 251, 234); */
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .banner .bg .content p {
     font-size: 1.5em;
-    color: #dbd9d9;
+    color: var(--text-color);
     letter-spacing: 1px;
     font-weight: 600;
 }
@@ -300,12 +308,12 @@ header.sticky {
 
 .banner .bg .content a {
     display: inline-block;
-    padding: 10px 20px;
-    margin: 20px 0;
+    padding: 8px 10px;
+    margin: 10px 0;
     border: 1px solid #1aeeef;
     text-decoration: none;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 500;
     border-radius: 5px;
     color: #fff;
     letter-spacing: 1px;
@@ -339,16 +347,17 @@ header.sticky {
 
 
 
-/* About */
+/* About Section */
 .about {
-    position: relative;
+    /* position: relative; */
     width: 100%;
     min-height: 75vh;
+    background-color: var(--bg-color-dark);
     /* padding: 0px 100px; */
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* justify-content: space-between; */
     align-items: center;
-    background-color: #050e2d;
 }
 
 .about .contentBx {
@@ -363,12 +372,18 @@ header.sticky {
     font-weight: 700;
     color: #fff;
 }
+.about .contentBx h6 {
+    font-size: 2em;
+    font-weight: 500;
+    color: #e0a210;
+    font-style: italic;
+}
 
 .about .contentBx p {
     font-size: 20px;
     max-width: 600px;
     text-align: justify;
-    color: #dbd9d9;
+    color: var(--text-color);
 }
 
 
@@ -397,6 +412,7 @@ header.sticky {
     /* border-radius: 50%; */
     cursor: pointer;
     transition: all .5s ease;
+    border-radius: 10px;
 }
 
 .about img:hover {
@@ -406,7 +422,7 @@ header.sticky {
 
 /* carausel */
 .carousel-inner img {
-    width: 80%;
+    width: 70%;
     height: 60vh;
     margin: auto;
     padding: 20px 10px;
@@ -442,33 +458,23 @@ header.sticky {
     align-items: center; */
 }
 
-/* .popularExchange h2,.payment h2{
-    font-size: 3em;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: rgb(239, 195, 19);
-    text-align: center;
-    padding: 20px 20px;
-} */
 /* ---------------------------Cards---------------------- */
 .cards {
-    width: 400px;
-    /* height: 200px; */
-    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+    border-radius: var(--border-radius);
     padding: 10px;
-    background-color: rgba(250, 175, 0, 0.629);
+    background-color: var(--card-bg);
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
     border: 1px solid goldenrod;
 }
 
-/* .cards:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-} */
+
 
 .card-body {
     position: relative;
@@ -480,26 +486,29 @@ header.sticky {
 }
 
 .card-body img {
-    width: 50%;
-    height: 25%;
+    width: 150px;
+    height: 100px;
+    margin-bottom: 5px;
+    border-radius: 10px;
 }
 
 .card-hover {
     position: absolute;
-    background-color: aqua;
+    /* background-color: aqua; */
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     bottom: -100%;
-    /* Start hidden below */
-    left: 0;
+    /* left: 0; */
+    /* transition: all .7s ease; */
     transition: bottom .7s ease;
     visibility: hidden;
+    overflow: hidden;
 }
 
 .cards:hover .card-hover {
@@ -510,15 +519,16 @@ header.sticky {
 
 
 .btn-card {
-    display: inline-block;
     padding: 10px 20px;
-    margin: 20px 0;
-    border: 1px solid #1aeeef;
-    text-decoration: none;
+    border: 1px solid var(--primary-color);
     font-weight: 700;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     color: #fff;
-    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 200px;
 }
 
 .btn-card:hover {
@@ -866,18 +876,18 @@ footer .disclaimer .hline {
 }
 
 
-.hline{
+/* .hline{
     width: 80%;
     height: 10px;
     color: white;
     position: relative;
     z-index: 11;
-}
+} */
 
 
-img {
+/* img {
     animation: float 4s ease-in-out infinite;
-}
+} */
 
 
 @keyframes float {
@@ -903,23 +913,40 @@ img {
 
   
     .container {
-        width: 90%;
+        width: calc(var(--container-width) - 10%);
     }
-
-    .banner .bg {
-        top: 70px;
+   
+    .banner  {
+        
+        height: 100vh;
+        position: relative;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-top: 50px;
     }
 
-    .banner .bg .content h2 {
+    .banner .content  {
+        position: relative;
+        top: 70px;
+    }
+    .banner .content h2 {
         font-size: 3em;
-        font-weight: 800;
+        /* font-weight: 800; */
+    }
+    .banner .content img {
+        width: 100%;
+        height: 100%;
+    }
+    .banner .content a {
+        padding: 5px 10px;
+        font-size: 1rem; 
     }
     p{
-        font-size: 18px;
+        font-size: 1.1rem;
+    }
+    .sec-heading {
+        font-size: 1.8rem;
+        font-weight: 600;
     }
 
 }
@@ -928,23 +955,41 @@ img {
     /* .offcanvas-fullwidth {
         width: 100%; 
     } */
-    /* .container {
+    .container {
         width: 90%;
     }
 
-    .banner .bg {
+    .banner .content{
+        position: relative;
         top: 70px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
         padding-top: 50px;
     }
 
     .banner .bg .content h2 {
-        font-size: 3em;
+        font-size: 2.4em;
         font-weight: 800;
+        line-height: 3rem;
+    }
+    .banner .bg .content p {
+        font-size: 1.2em;
+    }
+
+    /* .banner .content h2 {
+        font-size: 2.5em;
     } */
+
+    .about {
+        flex-direction: column;
+    }
+    .counters{
+        border: 10px;
+         padding: 100px 10px;
+        }
     
+        .Customers-count{
+            width: 45%;
+            margin-bottom: 10px;
+        }
 
 }
 
@@ -962,7 +1007,6 @@ img {
     .sec-heading {
         font-size: 1.5rem;
         font-weight: 700;
-
     }
 
     .banner .content {
@@ -971,12 +1015,18 @@ img {
         justify-content: center;
         align-items: center;
         text-align: center;
+        top: 70px;
+        padding-top: 150px;
     }
 
-    .banner .bg .content h2 {
-        font-size: 2.5em;
+    .banner .content h2 {
+        font-size: 2rem;
         font-weight: 900;
-        line-height: 3rem;
+        line-height: 2rem;
+    }
+    .banner .content P {
+        font-size: 1.2rem;
+        line-height: 2rem;
     }
 
     .contentBx {
@@ -992,9 +1042,7 @@ img {
     footer {
         display: flex;
         flex-direction: column;
-
         align-items: center;
-
     }
 
     footer .container .row {
