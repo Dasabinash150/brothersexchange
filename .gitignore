@@ -1,0 +1,37 @@
+# Environment files
+.env
+
+# Composer
+/vendor/
+
+# Node.js
+/node_modules/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# User uploads
+/uploads/reviews/*
+/uploads/winners/*
+/uploads/payments/*
+
+# Keep folders in git
+!/uploads/reviews/.gitkeep
+!/uploads/winners/.gitkeep
+!/uploads/payments/.gitkeep
+
+# Database dumps
+*.sql
+*.sqlite
+
+# Temporary files
+*.tmp
+*.bak
