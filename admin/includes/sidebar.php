@@ -81,31 +81,16 @@ body{
             </a>
         </li>
         <li>
-<a href="exchanges.php">
-Exchange Management
-</a>
-</li>
-
-        <li>
-            <a href="reviews.php"
-            class="<?= ($current_page=='reviews.php')?'active':'' ?>">
-            Reviews
+            <a href="exchanges.php">
+            Exchange Management
+            </a>
+            </li>
+            <li>
+            <a href="settings.php">
+            Website Settings
             </a>
         </li>
 
-        <li>
-            <a href="winners.php"
-            class="<?= ($current_page=='winners.php')?'active':'' ?>">
-            Winners
-            </a>
-        </li>
-
-        <li>
-            <a href="payments.php"
-            class="<?= ($current_page=='payments.php')?'active':'' ?>">
-            Payment Settings
-            </a>
-        </li>
 
 
     </ul>

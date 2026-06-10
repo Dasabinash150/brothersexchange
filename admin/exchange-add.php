@@ -33,11 +33,11 @@ exit;
 <div class="main-content">
 
 <div class="d-flex justify-content-between mb-3">
-    <h3>Carousel Management</h3>
+    <h3>Exchanges Management</h3>
 
     <a href="add-carousel.php"
        class="btn btn-primary">
-       Add Slide
+       Add Management
     </a>
 </div>
 

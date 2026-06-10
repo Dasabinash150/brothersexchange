@@ -1,8 +1,26 @@
 <?php
+
 include '../includes/config.php';
 
-$result = mysqli_query($conn,
-"SELECT * FROM exchanges ORDER BY id DESC");
+if(isset($_GET['toggle'])){
+
+    $id = (int)$_GET['toggle'];
+
+    mysqli_query(
+        $conn,
+        "UPDATE exchanges
+         SET status = IF(status=1,0,1)
+         WHERE id=$id"
+    );
+
+    header("Location: exchanges.php");
+    exit;
+}
+
+$result = mysqli_query(
+    $conn,
+    "SELECT * FROM exchanges ORDER BY id DESC"
+);
 ?>
 
 <?php include 'includes/header.php'; ?>

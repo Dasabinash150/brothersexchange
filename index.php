@@ -19,6 +19,15 @@ $exchanges = mysqli_query(
 
 ?>
 
+<?php
+$settings = mysqli_fetch_assoc(
+mysqli_query(
+$conn,
+"SELECT * FROM website_settings WHERE id=1"
+)
+);
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -26,7 +35,7 @@ $exchanges = mysqli_query(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BrothersExchange</title>
-    <link rel="icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="uploads/settings/<?= $settings['favicon']; ?>" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -54,7 +63,7 @@ $exchanges = mysqli_query(
     <header class="header">
         <nav class="navbar navbar-expand-lg ">
             <div class="container">
-                <a class="navbar-brand-logo" href="#"><img src="images/Brothers Exchange/Brothers Exchange Logo.png"
+                <a class="navbar-brand-logo" href="#"><img src="uploads/settings/<?= $settings['logo']; ?>"
                         alt="" style="width: 180px; height: 50px;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -103,15 +112,16 @@ $exchanges = mysqli_query(
             <div class="row bg d-flex justify-content-center align-items-center">
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="content">
-                        <h2>A New Home for <br>
-                            Online Gaming Lovers</h2>
-                        <p></p>
-                        <a href="https://wa.me/8981522324" class="b-btn" target="_blank"><i
+                        <h2><?= $settings['hero_title'] ?></h2>
+                        
+
+                        <p><?= $settings['hero_description'] ?></p>
+                        <a href="https://wa.me/<?= $settings['whatsapp'] ?>" class="b-btn" target="_blank"><i
                                 class="fa-brands fa-whatsapp"></i>Get Your ID</a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm- d-flex justify-content-center align-items-center">
-                    <img src="images/about-ro.webp" alt="">
+                    <img src="uploads/settings/<?= $settings['hero_image']; ?>" alt="">
                 </div>
             </div>
         </div>
@@ -128,22 +138,12 @@ $exchanges = mysqli_query(
                 <div class="col-lg-6 col-sm-12 text-center about-text">
                     <h3 class="sec-sub-heading">BrothersExchange Book</h3>
                     <p>
-                        <br>
-
-                        BrothersExchange is an online sports betting and online casino company based in India that
-                        offers a plethora of online games like Rummy, Poker, Roulette, Ludo, etc., under one roof.
-                        Whether you are a cricket or hockey fan, football or tennis fanatic, you’ll find the best online
-                        sports betting options on Bindass Khelo.
-                        <br>
-                        Our primary motto is to ensure that we provide a unique gaming platform for individuals to
-                        utilise their strategic understanding of the games we all love rather than just play them.
-                        Founded in 2011, with over 5 lakh+ satisfied customers.Bindass khelo’s mission is to offer fun
-                        and be India’s most trusted sports platform.
+                        <?= nl2br($settings['about_content']); ?>
                     </p>
                     <a href="#">Read more</a>
                 </div>
                 <div class="col-lg-6 col-sm-12 d-flex justify-content-center align-items-center about-image">
-                    <img src="images/about.jpeg" alt="">
+                    <img src="uploads/settings/<?= $settings['about_image']; ?>" alt="">
                 </div>
             </div>
 
@@ -491,6 +491,26 @@ $exchanges = mysqli_query(
                         <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
+                <div class="cards col-md-6 col-sm-6">
+                    <div class="card-content">
+                        <div class="card-data">
+                            <h6><b>Player: </b> Jack****</h6>
+                            <h6><b>Time:</b>21/01/2026 <br> 6:55</h6>
+                            <h6><b>Win Amount:</b>2,13,000</h6>
+                        </div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
+                    </div>
+                </div>
+                <div class="cards col-md-6 col-sm-6">
+                    <div class="card-content">
+                        <div class="card-data">
+                            <h6><b>Player: </b> Jack****</h6>
+                            <h6><b>Time:</b>21/01/2026 <br> 6:55</h6>
+                            <h6><b>Win Amount:</b>2,13,000</h6>
+                        </div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -539,19 +559,35 @@ $exchanges = mysqli_query(
                     <h3>Addiction Warning</h3>
                     <p>These games are addictive so please
                         play responsibly.</p>
-                    <div class="social">
-                        <a href="">
+                   <div class="social">
+
+                        <?php if(!empty($settings['facebook'])){ ?>
+                        <a href="<?= $settings['facebook']; ?>"
+                        target="_blank">
                             <i class="fa-brands fa-facebook"></i>
                         </a>
-                        <a href="">
+                        <?php } ?>
+
+                        <?php if(!empty($settings['instagram'])){ ?>
+                        <a href="<?= $settings['instagram']; ?>"
+                        target="_blank">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                        <a href="">
+                        <?php } ?>
+
+                        <?php if(!empty($settings['telegram'])){ ?>
+                        <a href="<?= $settings['telegram']; ?>"
+                        target="_blank">
                             <i class="fa-brands fa-telegram"></i>
                         </a>
-                        <a href="">
+                        <?php } ?>
+
+                        <?php if(!empty($settings['twitter'])){ ?>
+                        <a href="<?= $settings['twitter']; ?>"
+                        target="_blank">
                             <i class="fa-brands fa-twitter"></i>
                         </a>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -588,7 +624,7 @@ $exchanges = mysqli_query(
 
     <div class="fixed-whatsapp">
         <span class="contact-whatsapp">Contact Us</span>
-        <a href="https://wa.me/8981522324?text=Hi%27,%20like%20to%20chat%20with%20you" class="b-btn" target="_blank"><i
+        <a href="https://wa.me/<?= $settings['whatsapp'] ?>?text=Hi%27,%20like%20to%20chat%20with%20you" class="b-btn" target="_blank"><i
                 class="fa-brands fa-whatsapp"></i></a>
     </div>
 

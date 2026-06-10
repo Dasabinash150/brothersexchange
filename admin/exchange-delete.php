@@ -25,6 +25,7 @@ $conn,
 header("Location: exchanges.php");
 exit;
 
+?>
 
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/sidebar.php'; ?>
