@@ -1,3 +1,24 @@
+<?php
+include 'includes/config.php';
+
+$slides = mysqli_query(
+    $conn,
+    "SELECT * FROM carousel_slides
+     WHERE status=1
+     ORDER BY id DESC"
+);
+
+// exchange
+$exchanges = mysqli_query(
+    $conn,
+    "SELECT * FROM exchanges
+     WHERE status=1
+     ORDER BY id DESC"
+);
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -5,7 +26,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BrothersExchange</title>
-    <link rel="icon" href="/images/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -127,36 +148,67 @@
             </div>
 
 
-            <div class="row justify-content-center align-items-center my-4 ">
-                <div class="col-lg-12 col-sm-12 ">
-                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active " data-bs-interval="3000">
-                                <img src="/images/slider/slider1.jpeg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item" data-bs-interval="3000">
-                                <img src="/images/slider/slider2.jpeg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item" data-bs-interval="3000">
-                                <img src="/images/slider/slider3.jpeg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item" data-bs-interval="3000">
-                                <img src="/images/slider/slider4.jpeg" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+<div class="row justify-content-center align-items-center my-4">
+    <div class="col-lg-12 col-sm-12">
+
+        <div id="carouselExampleAutoplaying"
+             class="carousel slide"
+             data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+
+                <?php
+                $active = true;
+
+                while($slide = mysqli_fetch_assoc($slides)){
+                ?>
+
+                <div class="carousel-item <?= $active ? 'active' : '' ?>"
+                     data-bs-interval="3000">
+
+                    <?php if(!empty($slide['link'])){ ?>
+                        <a href="<?= $slide['link'] ?>" target="_blank">
+                    <?php } ?>
+
+                    <img src="uploads/carousel/<?= $slide['image'] ?>"
+                         class="d-block w-100"
+                         alt="<?= htmlspecialchars($slide['title']) ?>">
+
+                    <?php if(!empty($slide['link'])){ ?>
+                        </a>
+                    <?php } ?>
+
                 </div>
+
+                <?php
+                    $active = false;
+                }
+                ?>
+
             </div>
+
+            <button class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+
+                <span class="carousel-control-prev-icon"></span>
+
+            </button>
+
+            <button class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+
+                <span class="carousel-control-next-icon"></span>
+
+            </button>
+
+        </div>
+
+    </div>
+</div>
         </div>
 
     </div>
@@ -164,40 +216,49 @@
 
     <!-- popular Exchange -->
 
-    <div class="popularExchange" id="popularExchange">
-        <div class="container">
-            <h2 class="sec-heading">Our Popular Exchange</h2>
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="cards mx-4 col-4 col-md-4 animate__animated animate__slideInUp ">
-                    <div class="card-body">
-                        <img src="/images/card_img/hot_exchange.jpeg" alt="">
-                        <a href="https://Hotexch20.com" class="btn btn-primary btn-card">Play Now</a>
-                    </div>
-                    <div class="card-hover">
-                        <a href="https://Hotexch20.com" class="btn-card" target="_blank">Play</a>
-                    </div>
+<div class="popularExchange" id="popularExchange">
+    <div class="container">
+
+        <h2 class="sec-heading">Our Popular Exchange</h2>
+
+        <div class="row d-flex justify-content-center align-items-center">
+
+            <?php while($exchange = mysqli_fetch_assoc($exchanges)){ ?>
+
+            <div class="cards mx-4 col-4 col-md-4 animate__animated animate__slideInUp">
+
+                <div class="card-body">
+
+                    <img src="uploads/exchanges/<?= $exchange['image'] ?>" alt="">
+
+                    <a href="<?= $exchange['link'] ?>"
+                       class="btn btn-primary btn-card"
+                       target="_blank">
+
+                        Play Now
+                    </a>
+
                 </div>
-                <div class="cards mx-4 col-4 col-md-4 animate__animated animate__slideInUp ">
-                    <div class="card-body">
-                        <img src="/images/card_img/world777.jpeg" alt="">
-                        <a href="https://www.world777.Now" class="btn btn-primary btn-card">Play Now</a>
-                    </div>
-                    <div class="card-hover">
-                        <a href="https://www.world777.Now" class="btn-card" target="_blank">Play</a>
-                    </div>
+
+                <div class="card-hover">
+
+                    <a href="<?= $exchange['link'] ?>"
+                       class="btn-card"
+                       target="_blank">
+
+                        Play
+                    </a>
+
                 </div>
-                <div class="cards mx-4 col-4 col-md-4 animate__animated animate__slideInUp ">
-                    <div class="card-body">
-                        <img src="/images/card_img/diamond_ex.jpeg" alt="">
-                        <a href="https://www.diamondexch99.com/" class="btn btn-primary btn-card">Play Now</a>
-                    </div>
-                    <div class="card-hover">
-                        <a href="https://www.diamondexch99.com/" class="btn-card" target="_blank">Play</a>
-                    </div>
-                </div>
+
             </div>
+
+            <?php } ?>
+
         </div>
+
     </div>
+</div>
 
     <!-- why with us start -->
     <section class="why-with-us " id="why-with-us">
@@ -254,7 +315,7 @@
             </h2>
             <div class="row d-flex justify-content-center align-items-center ">
                 <div class="col-lg-6 col-sm-12 payment-image about-text">
-                    <img src="/images/payment.webp" alt="">
+                    <img src="images/payment.webp" alt="">
                 </div>
                 <div class="col-lg-6 col-sm-12 about-image">
                     <h3 class="sec-sub-heading">Betting Raja don't bleed you with commissions.!</h3>
@@ -304,46 +365,46 @@
                 <div class="swiper-wrapper">
                     <!-- Slides -->
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment1.jpeg" />
+                        <img src="images/Review/payment1.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment2.jpeg" />
+                        <img src="images/Review/payment2.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment3.jpeg" />
+                        <img src="images/Review/payment3.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment1.jpeg" />
+                        <img src="images/Review/payment1.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment4.jpeg" />
+                        <img src="images/Review/payment4.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment5.jpeg" />
+                        <img src="images/Review/payment5.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment6.jpeg" />
+                        <img src="images/Review/payment6.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment7.jpeg" />
+                        <img src="images/Review/payment7.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment8.jpeg" />
+                        <img src="images/Review/payment8.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment9.jpeg" />
+                        <img src="images/Review/payment9.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment10.jpeg" />
+                        <img src="images/Review/payment10.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment11.jpeg" />
+                        <img src="images/Review/payment11.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment12.jpeg" />
+                        <img src="images/Review/payment12.jpeg" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="/images/Review/payment13.jpeg" />
+                        <img src="images/Review/payment13.jpeg" />
                     </div>
 
                 </div>
@@ -377,7 +438,7 @@
                             <h6><b>Time:</b>03/11/2024 <br> 11:22</h6>
                             <h6><b>Win Amount:</b>44,000</h6>
                         </div>
-                        <div><img src="/images/user-icon.webp" alt=""></div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
                 <div class="cards col-md-6 col-sm-6">
@@ -387,7 +448,7 @@
                             <h6><b>Time:</b>03/01/2026 <br> 1:22</h6>
                             <h6><b>Win Amount:</b>1,35,600</h6>
                         </div>
-                        <div><img src="/images/user-icon.webp" alt=""></div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
                 <div class="cards col-md-6 col-sm-6">
@@ -397,7 +458,7 @@
                             <h6><b>Time:</b>08/01/2026 <br> 9:34</h6>
                             <h6><b>Win Amount:</b>97,000</h6>
                         </div>
-                        <div><img src="/images/user-icon.webp" alt=""></div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
                 <div class="cards col-md-6 col-sm-6">
@@ -407,7 +468,7 @@
                             <h6><b>Time:</b>03/12/2025 <br> 8:10</h6>
                             <h6><b>Win Amount:</b>73,000</h6>
                         </div>
-                        <div><img src="/images/user-icon.webp" alt=""></div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
                 <div class="cards col-md-6 col-sm-6">
@@ -417,7 +478,7 @@
                             <h6><b>Time:</b>08/01/2026 <br> 9:15</h6>
                             <h6><b>Win Amount:</b>1,70,000</h6>
                         </div>
-                        <div><img src="/images/user-icon.webp" alt=""></div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
                 <div class="cards col-md-6 col-sm-6">
@@ -427,7 +488,7 @@
                             <h6><b>Time:</b>21/01/2026 <br> 6:55</h6>
                             <h6><b>Win Amount:</b>2,13,000</h6>
                         </div>
-                        <div><img src="/images/user-icon.webp" alt=""></div>
+                        <div><img src="images/user-icon.webp" alt=""></div>
                     </div>
                 </div>
 
@@ -469,9 +530,9 @@
                 <div class="col-lg-4 col-sm-12">
                     <h3>Gaming Rule</h3>
                     <div>
-                        <img src="/images/18plus.webp" alt="">
-                        <img src="/images/gamecare.webp" alt="">
-                        <img src="/images/gt.webp" alt="">
+                        <img src="images/18plus.webp" alt="">
+                        <img src="images/gamecare.webp" alt="">
+                        <img src="images/gt.webp" alt="">
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -546,16 +607,6 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <!-- slider js -->
-    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-     -->
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"
-        integrity="sha512-Ysw1DcK1P+uYLqprEAzNQJP+J4hTx4t/3X2nbVwszao8wD+9afLjBQYjz7Uk4ADP+Er++mJoScI42ueGtQOzEA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -564,7 +615,7 @@
         integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="/js/script.js"></script>
+    <script src="js/script.js"></script>
     <script>
         // if (typeof jQuery !== 'undefined') {
         //     console.log('jQuery is loaded');
